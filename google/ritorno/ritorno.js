@@ -77,9 +77,11 @@ function start() {
   if (!base) return show("bloccato");
 
   if (q.get("error")) {
-    // Annullato su Google: si torna allo StudioFlow dell'ufficio senza codice.
+    // Annullato su Google: si torna allo StudioFlow dell'ufficio senza codice; il server chiude
+    // il collegamento avviato e mostra l'esito nella pagina Account Google.
     show("negato");
-    document.getElementById("torna").href = base + "/profilo";
+    const back = new URLSearchParams({ error: q.get("error"), state });
+    document.getElementById("torna").href = base + CALLBACK_PATH + "?" + back.toString();
     return;
   }
   const code = q.get("code");
