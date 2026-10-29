@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudioFlow · Informativa privacy</title>
+<meta name="description" content="Informativa privacy del sito di StudioFlow e del collegamento con gli account Google.">
+<style>
+  :root { --bg: #f5f8fd; --card: #ffffff; --line: #dbe3f0; --text: #0f172a; --muted: #55657e; --accent: #2563eb; --soft: #e3ecfd; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #070c18; --card: #111a2c; --line: #22304a; --text: #eef2f7; --muted: #94a3b8; --accent: #4c9dff; --soft: #172a4a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  header, main, footer { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  header { padding-top: 28px; }
+  header a { color: var(--text); text-decoration: none; font-weight: 800; font-size: 20px; }
+  main { margin-top: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 36px 40px; }
+  h1 { margin: 0 0 4px; font-size: 30px; letter-spacing: -.02em; }
+  h2 { margin: 34px 0 8px; font-size: 20px; }
+  .upd { color: var(--muted); margin: 0 0 20px; }
+  a { color: var(--accent); }
+  code { background: var(--soft); padding: 1px 6px; border-radius: 6px; font-size: 14px; }
+  .box { background: var(--soft); border-radius: 14px; padding: 16px 20px; margin: 16px 0; }
+  ul { padding-left: 22px; }
+  footer { color: var(--muted); font-size: 14px; padding: 24px 20px 40px; }
+  @media (max-width: 560px) { main { padding: 26px 20px; border-radius: 16px; } h1 { font-size: 25px; } }
+</style>
+</head>
+<body>
+<header><a href="../">StudioFlow</a></header>
+<main>
+  <h1>Informativa privacy</h1>
+  <p class="upd">Ultimo aggiornamento: 29 ottobre 2026</p>
+
+  <div class="box">
+    <b>In breve.</b> StudioFlow si installa nell'ufficio di ogni studio: i dati degli studi e dei loro
+    clienti restano sul server dell'ufficio e non arrivano a noi. Questo sito non usa cookie, statistiche
+    né moduli.
+  </div>
+
+  <h2>Chi tratta i dati</h2>
+  <p>StudioFlow è un gestionale per studi tecnici installato sul server di ogni studio. Per i dati che
+  uno studio inserisce in StudioFlow (soggetti, commesse, pratiche, immobili, agenda, documenti) il
+  titolare del trattamento è lo studio stesso. Gli sviluppatori di StudioFlow non ricevono questi dati.</p>
+
+  <h2>Questo sito</h2>
+  <p>Il sito è pubblicato con GitHub Pages. Non usa cookie, non carica statistiche, pubblicità o
+  caratteri da altri siti e non contiene moduli. GitHub può registrare nei suoi log tecnici l'indirizzo
+  IP di chi visita le pagine, per sicurezza: vedi
+  l'<a href="https://docs.github.com/it/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer">informativa di GitHub</a>.</p>
+
+  <h2 id="google">Collegamento con gli account Google</h2>
+  <p>In StudioFlow ogni persona può collegare, se vuole, uno o più dei propri account Google. Il
+  collegamento chiede solo questi permessi:</p>
+  <ul>
+    <li><code>openid</code>, <code>email</code>, <code>profile</code>: nome, indirizzo email e foto
+      dell'account, per mostrare quale account è collegato;</li>
+    <li><code>calendar</code>: leggere e scrivere gli eventi di Google Calendar, per tenere l'Agenda di
+      StudioFlow sincronizzata nei due sensi;</li>
+    <li><code>drive.file</code>: solo i file che StudioFlow crea su Google Drive o che la persona sceglie
+      di aprire con StudioFlow. StudioFlow non vede il resto del Drive.</li>
+  </ul>
+  <p><b>Dove finiscono i dati.</b> Le informazioni ricevute da Google vanno solo al server di StudioFlow
+  nell'ufficio dello studio. Il collegamento è conservato cifrato su quel server. Non sono inviate agli
+  sviluppatori di StudioFlow né ad altri, non sono vendute, non sono usate per pubblicità e non sono
+  usate per addestrare modelli di intelligenza artificiale.</p>
+  <p><b>La pagina di ritorno.</b> Dopo il consenso, Google riporta il browser alla pagina
+  <code>google/ritorno</code> di questo sito. La pagina rimanda il browser al server dell'ufficio (solo
+  verso indirizzi della rete interna o di Tailscale) e non salva né registra nulla.</p>
+  <p><b>Come revocare.</b> In StudioFlow: Profilo → Account Google → Scollega (il permesso viene
+  revocato anche presso Google). In ogni momento anche da
+  <a href="https://myaccount.google.com/permissions" rel="noopener noreferrer">myaccount.google.com/permissions</a>.</p>
+  <p>L'uso e il trasferimento ad altre app delle informazioni ricevute dalle API di Google da parte di
+  StudioFlow rispettano le
+  <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer">Norme
+  sui dati utente dei servizi API di Google</a>, inclusi i requisiti di Utilizzo limitato
+  (Limited Use).</p>
+
+  <h2>Diritti</h2>
+  <p>Per i dati in StudioFlow ci si rivolge allo studio che li tratta. Per il collegamento con Google
+  ognuno può scollegare il proprio account in qualsiasi momento, come descritto sopra.</p>
+
+  <h2>Contatti</h2>
+  <p>Contatti in arrivo: a breve trovi qui l'indirizzo a cui scrivere.</p>
+</main>
+<footer>© 2026 StudioFlow · <a href="../">Torna al sito</a></footer>
+</body>
+</html>
