@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudioFlow · Diventa betatester</title>
+<meta name="description" content="Prova StudioFlow nel tuo studio tecnico, gratis per 12 mesi: cerchiamo pochi studi che lo usino davvero e ci dicano cosa non va.">
+<!--
+  Indirizzo del server della prova (Tailscale Funnel), dove il modulo manda la richiesta. Vuoto = le
+  richieste non sono ancora aperte e il modulo non si mostra. Il server accetta le richieste solo dai
+  siti scritti in StudioFlow → Impostazioni → Server → Inviti alla prova.
+-->
+<meta name="studioflow-prova" content="">
+<!--
+  Pagina «Diventa betatester» (piano betatester B-4, anteprima approvata il 23/11/2026). Nessuno
+  script, font o statistica di terzi: l'unico script è qui sotto e manda il modulo al server della prova.
+-->
+<style>
+  :root {
+    --bg: #f5f8fd; --grid: rgba(37,99,235,.07); --grid-strong: rgba(37,99,235,.12);
+    --card: #ffffff; --line: #dbe3f0; --text: #0f172a; --muted: #55657e;
+    --accent: #2563eb; --accent-2: #1559d6; --accent-soft: #e3ecfd;
+    --ok: #047857; --ok-soft: #ecfdf5; --warn: #92400e; --warn-soft: #fffbeb; --err: #b91c1c; --err-soft: #fef2f2;
+  }
+  :root[data-theme="scuro"] {
+    --bg: #070c18; --grid: rgba(96,165,250,.06); --grid-strong: rgba(96,165,250,.11);
+    --card: #111a2c; --line: #22304a; --text: #eef2f7; --muted: #94a3b8;
+    --accent: #4c9dff; --accent-2: #2b7fff; --accent-soft: #172a4a;
+    --ok: #34d399; --ok-soft: #052e1f; --warn: #fbbf24; --warn-soft: #2a1f05; --err: #f87171; --err-soft: #2a0f12;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text); background: var(--bg); line-height: 1.5; }
+  a { color: inherit; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  .paper {
+    background-image:
+      linear-gradient(var(--grid-strong) 1px, transparent 1px), linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px),
+      linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  }
+  header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; gap: 28px; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; letter-spacing: -.02em; text-decoration: none; }
+  .logo svg { width: 34px; height: 34px; border-radius: 8px; box-shadow: 0 0 0 1px var(--line); }
+  .nav nav { display: flex; gap: 24px; font-size: 15px; color: var(--muted); }
+  .nav nav a { text-decoration: none; } .nav nav a:hover, .nav nav a.on { color: var(--accent); }
+  .nav nav a.on { font-weight: 600; }
+  .hero { padding: 56px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: start; }
+  .pill { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 13px; }
+  h1 { font-size: 46px; line-height: 1.08; letter-spacing: -.03em; margin: 14px 0 16px; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent-2), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: 18px; color: var(--muted); margin: 0 0 26px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+  .card h2, .card h3 { margin: 0 0 6px; font-size: 17px; }
+  .card ul { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 15px; }
+  .card li { margin: 4px 0; }
+  form.card { padding: 24px; box-shadow: 0 40px 80px -50px rgba(15,23,42,.45); }
+  .sub { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  label.f { display: block; font-size: 13px; font-weight: 600; }
+  label.f span { display: block; margin-bottom: 4px; }
+  input, select { width: 100%; font: inherit; font-size: 15px; color: var(--text); background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 9px 12px; }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .check { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; font-size: 14px; }
+  .check input { width: 18px; height: 18px; margin-top: 2px; flex: none; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .hint { color: var(--muted); font-size: 13px; }
+  button { font: inherit; font-weight: 600; border: 0; border-radius: 12px; padding: 12px 20px; background: var(--accent); color: #fff; cursor: pointer;
+    box-shadow: 0 10px 24px -10px var(--accent); }
+  button[disabled] { opacity: .6; cursor: progress; }
+  .msg { border-radius: 12px; padding: 14px 16px; font-size: 15px; margin-top: 14px; }
+  .msg.ok { background: var(--ok-soft); color: var(--ok); }
+  .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .msg.err { background: var(--err-soft); color: var(--err); }
+  .msg b { color: inherit; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 8px 0 72px; }
+  .steps .n { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .steps b { display: block; margin: 10px 0 4px; }
+  .steps p { margin: 0; color: var(--muted); font-size: 14px; }
+  .spam { color: var(--muted); font-size: 13px; margin: -48px 0 64px; max-width: 820px; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  footer nav { margin-left: auto; display: flex; gap: 20px; }
+  @media (max-width: 960px) {
+    .hero .wrap, .two, .steps { grid-template-columns: 1fr; }
+    .nav nav { display: none; }
+    h1 { font-size: 36px; }
+    .spam { margin-top: -40px; }
+  }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } footer nav { margin-left: 0; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="../">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b7fff"/><stop offset="1" stop-color="#1559d6"/></linearGradient><linearGradient id="r" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4c9dff"/><stop offset="1" stop-color="#1f6fef"/></linearGradient><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8f0fd"/><stop offset="1" stop-color="#b9cff5"/></linearGradient></defs><rect width="40" height="40" rx="9" fill="#0f172a"/><path d="M9.4 10.6 L17.4 8.9 L14.2 19.4 L8.4 25.2 Z" fill="url(#l)" stroke="url(#l)" stroke-width="1.4" stroke-linejoin="round"/><path d="M23.4 6 L30.2 6.4 L21 19.6 L16.2 18.9 L17.8 13.6 Z" fill="url(#r)" stroke="url(#r)" stroke-width="1.4" stroke-linejoin="round"/><path d="M23.2 18 L30.4 17 L30.4 28.2 L28.8 30 L8.6 30 L12.6 24 L21.8 22.2 Z" fill="url(#b)" stroke="url(#b)" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      StudioFlow
+    </a>
+    <nav><a href="../#funzioni">Funzioni</a><a href="../#ufficio">I dati in ufficio</a><a class="on" href="./">Diventa betatester</a></nav>
+  </div>
+</header>
+
+<section class="hero paper">
+  <div class="wrap">
+    <div>
+      <span class="pill">Prova gratuita · 12 mesi · 10 studi</span>
+      <h1>Prova StudioFlow nel tuo studio, <em>prima di tutti</em></h1>
+      <p class="lead">Cerchiamo pochi studi tecnici (geometri, architetti, ingegneri, topografi) che usino StudioFlow nel lavoro di tutti i giorni e ci dicano cosa non va. Lavori dal browser, senza installare niente: il tuo studio è separato da tutti gli altri.</p>
+      <div class="two">
+        <div class="card">
+          <h2>Cosa ricevi</h2>
+          <ul>
+            <li>StudioFlow completo, gratis per 12 mesi</li>
+            <li>Assistenza dal Supporto, risposta entro 2 giorni lavorativi</li>
+            <li>Le novità per primo, con i video</li>
+            <li>Alla fine ti porti via il tuo studio in un file</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Cosa ti chiediamo</h2>
+          <ul>
+            <li>Usarlo davvero, almeno un'ora a settimana</li>
+            <li>Segnalare errori e idee dal Supporto</li>
+            <li>Un questionario di 2 minuti ogni mese</li>
+            <li>Accettare le condizioni della prova e l'accordo sui dati</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <form class="card" id="richiesta" novalidate>
+      <h2>Chiedi il tuo invito</h2>
+      <p class="sub">Leggiamo ogni richiesta a mano. Se c'è posto ricevi per email il tuo codice personale.</p>
+      <div id="campi">
+        <div class="grid">
+          <label class="f"><span>Nome e cognome *</span><input name="name" required maxlength="120" autocomplete="name"></label>
+          <label class="f"><span>Email *</span><input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+          <label class="f"><span>Nome dello studio *</span><input name="studioName" required maxlength="120"></label>
+          <label class="f"><span>Professione *</span>
+            <select name="profession" required>
+              <option value="">Scegli…</option>
+              <option>Geometra</option><option>Architetto</option><option>Ingegnere</option><option>Topografo</option>
+              <option>Perito</option><option>Studio multidisciplinare</option><option>Altro</option>
+            </select>
+          </label>
+          <label class="f"><span>Provincia *</span><input name="province" required maxlength="40" placeholder="es. Livorno"></label>
+          <label class="f"><span>Telefono</span><input name="phone" maxlength="30" autocomplete="tel" placeholder="facoltativo"></label>
+          <label class="f"><span>Quante persone</span>
+            <select name="people"><option value="">Scegli…</option><option>Solo io</option><option>2-3 persone</option><option>4-10 persone</option><option>Più di 10</option></select>
+          </label>
+          <label class="f"><span>Cosa useresti di più</span>
+            <select name="interest"><option value="">Scegli…</option><option>Commesse e pratiche</option><option>Preventivi</option><option>Posta e PEC</option><option>Tavole e CAD</option><option>Cantieri</option><option>Tutto</option></select>
+          </label>
+        </div>
+        <!-- Casella trappola: la compilano solo i programmi automatici -->
+        <div class="trap" aria-hidden="true"><label>Sito web <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <label class="check"><input type="checkbox" name="privacy" required> <span>Ho letto l'<a href="../privacy/#prova">informativa privacy</a> per chi chiede l'invito *</span></label>
+        <div class="row">
+          <span class="hint">Niente link nei campi, niente pubblicità.</span>
+          <button type="submit" id="manda">Manda la richiesta</button>
+        </div>
+      </div>
+      <div id="esito" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="steps">
+      <div class="card"><span class="n">1</span><b>Mandi la richiesta</b><p>Da questa pagina. Ti arriva subito un'email di conferma.</p></div>
+      <div class="card"><span class="n">2</span><b>Ti mandiamo l'invito</b><p>Un codice personale, valido 14 giorni. Se i posti sono pieni resti in lista d'attesa.</p></div>
+      <div class="card"><span class="n">3</span><b>Crei il tuo studio</b><p>Accesso, condizioni, telefono per la verifica in due passaggi, studio vuoto o con dati di esempio.</p></div>
+      <div class="card"><span class="n">4</span><b>Lavori e ci dici</b><p>Dal browser, ovunque. Segnalazioni dal Supporto, questionario una volta al mese.</p></div>
+    </div>
+    <p class="spam">Contro lo spam: una casella nascosta che compilano solo i programmi automatici, al massimo 3 richieste al giorno dallo stesso indirizzo, niente link nei campi, e ogni richiesta la leggiamo a mano.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 StudioFlow · Il gestionale per gli studi tecnici</span>
+    <nav><a href="../">Home</a><a href="../privacy/">Informativa privacy</a></nav>
+  </div>
+</footer>
+
+<script>
+  const tema = new URLSearchParams(location.search).get("tema") || (matchMedia("(prefers-color-scheme: dark)").matches ? "scuro" : "chiaro");
+  document.documentElement.dataset.theme = tema;
+
+  const server = (document.querySelector('meta[name="studioflow-prova"]').content || "").replace(/\/+$/, "");
+  const form = document.getElementById("richiesta");
+  const campi = document.getElementById("campi");
+  const esito = document.getElementById("esito");
+  const manda = document.getElementById("manda");
+
+  const testo = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+
+  function mostra(tipo, html) {
+    esito.innerHTML = '<div class="msg ' + tipo + '">' + html + "</div>";
+  }
+
+  if (!server) {
+    campi.hidden = true;
+    mostra("warn", "<b>Le richieste si aprono a breve.</b> Torna su questa pagina tra qualche giorno.");
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const dati = Object.fromEntries(new FormData(form));
+    dati.privacy = form.privacy.checked;
+    manda.disabled = true;
+    manda.textContent = "Invio…";
+    esito.innerHTML = "";
+    try {
+      const r = await fetch(server + "/api/prova/richiesta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dati),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        mostra("err", testo(j.error || "La richiesta non è partita.") + " Correggi e riprova.");
+      } else {
+        campi.hidden = true;
+        mostra(
+          j.status === "WAITING" ? "warn" : "ok",
+          j.status === "WAITING"
+            ? "<b>Posti esauriti per ora.</b> La tua richiesta resta in lista d'attesa" + (j.position ? " (sei il " + j.position + "°)" : "") + ": ti scriviamo appena si libera un posto."
+            : "<b>Richiesta ricevuta.</b> Ti abbiamo mandato un'email di conferma. Se c'è posto ricevi il tuo invito personale con il link per entrare.",
+        );
+      }
+    } catch {
+      // Server spento o irraggiungibile: quello scritto resta nel modulo
+      mostra("warn", "<b>Il server della prova ora non risponde.</b> Quello che hai scritto resta qui: riprova tra qualche minuto.");
+    } finally {
+      manda.disabled = false;
+      manda.textContent = "Manda la richiesta";
+    }
+  });
+</script>
+</body>
+</html>
